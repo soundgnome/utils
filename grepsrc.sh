@@ -20,13 +20,16 @@ main() {
     target=""
     flags=""
     args=($@)
+
     for (( i=$#-1; i>=0; i-- )); do
         if [ -z $target ]; then
             target=${args[i]}
         elif [ -z $pattern ]; then
             pattern=${args[i]}
-        else
+        elif [ ${args[i]:0:1} = '-' ]; then
             flags="$flags ${args[i]}"
+        else
+            pattern="${args[i]} $pattern"
         fi
     done
 

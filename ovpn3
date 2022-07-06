@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -o errexit
+
+main() {
+    if [ $# -eq 0 ]; then
+        echo "command must be specified: connect, disconnect, status, restart";
+        return;
+    fi
+
+    case $1 in
+        "connect")
+            openvpn3 session-start --config $CONFIG
+            return
+            ;;
+        "disconnect" | "bye")
+            openvpn3 session-manage --config $CONFIG --disconnect
+            return
+            ;;
+        "status")
+            openvpn3 session-stats --config $CONFIG
+            return
+            ;;
+        "restart")
+            openvpn3 session-manage --config $CONFIG --restart
+            return
+            ;;
+    esac
+
+    echo "command '$1' not recognized"
+}
+
+
+main $@
