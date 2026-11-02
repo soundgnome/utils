@@ -16,7 +16,7 @@ main() {
             openvpn3 session-manage --config $CONFIG --disconnect
             return
             ;;
-        "status")
+        "status" | "stat")
             openvpn3 session-stats --config $CONFIG
             return
             ;;

@@ -4,9 +4,13 @@ set -o errexit
 
 main() {
 
-    if [ $# -lt 2 ]; then
+    if [ $# -eq 0 ]; then
         grep -h
         return
+    elif [ $# -eq 1 ]; then
+        target="."
+    else
+        target=""
     fi
 
     declare -A name_map=(
@@ -17,7 +21,6 @@ main() {
     filename=$(basename $0)
 
     pattern=""
-    target=""
     flags=""
     args=($@)
 
